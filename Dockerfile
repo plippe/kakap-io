@@ -10,5 +10,7 @@ RUN \
 FROM alpine:3.11
 
 COPY --from=builder /opt/repository/target/x86_64-unknown-linux-musl/release/kakapo /opt/bin/kakapo
+COPY --from=builder /opt/repository/assets /opt/bin/assets
+WORKDIR /opt/bin
 
-ENTRYPOINT /opt/bin/kakapo
+ENTRYPOINT kakapo
