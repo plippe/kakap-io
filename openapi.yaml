@@ -1,0 +1,40 @@
+openapi: 3.0.3
+
+info:
+  title: Kakapo.io
+  version: 0.1.0
+
+servers:
+  - url: https://kakap.io/v1
+
+paths:
+  /requests:
+    post:
+      summary: Request a feed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopifyPlatformRequestForm'
+
+      responses:
+        '201':
+          description: The created feed
+          content:
+            text/tsv:
+              schema:
+                type: string
+        '422':
+          description: The specified request is invalid.
+
+components:
+  schemas:
+    ShopifyPlatformRequestForm:
+      type: object
+      properties:
+        hostname:
+          type: string
+          format: hostname
+      required:
+        - hostname
