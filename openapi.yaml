@@ -5,10 +5,10 @@ info:
   version: 0.1.0
 
 servers:
-  - url: https://kakap.io/v1
+  - url: https://kakap.io
 
 paths:
-  /requests:
+  /v1/requests:
     post:
       summary: Request a feed
       requestBody:
