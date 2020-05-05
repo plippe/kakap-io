@@ -1,3 +1,11 @@
 steps:
 - name: 'rust'
-  args: ['cargo', 'test']
+  args:
+  - 'bash'
+  - '-c'
+  - >
+    rustup update nightly &&
+    rustup default nightly &&
+    rustup component add rustfmt &&
+    cargo test &&
+    cargo fmt -- --check
