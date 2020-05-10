@@ -1,11 +1,24 @@
 steps:
+- name: 'node'
+  args:
+  - 'bash'
+  - '-c'
+  - >
+    cd client &&
+    npm install &&
+    npm run test:unit &&
+    npm run lint
+  waitFor: ['-']
+
 - name: 'rust'
   args:
   - 'bash'
   - '-c'
   - >
+    cd server &&
     rustup update nightly &&
     rustup default nightly &&
     rustup component add rustfmt &&
     cargo test &&
     cargo fmt -- --check
+  waitFor: ['-']

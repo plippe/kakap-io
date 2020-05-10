@@ -1,8 +1,15 @@
-/target
-**/*.rs.bk
-
 /Dockerfile
 /.dockerignore
 
 /.git
-/.gitignore
+.gitignore
+
+/.gcloud
+
+# Client
+/client/dist
+/client/node_modules
+
+# Server
+/server/target
+/server/**/*.rs.bk
