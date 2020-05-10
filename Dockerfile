@@ -19,6 +19,7 @@ WORKDIR /opt/repository
 RUN \
     rustup update nightly && \
     rustup default nightly && \
+    rustup component add rustfmt && \
     cargo test && \
     cargo fmt -- --check && \
     cargo build --release
