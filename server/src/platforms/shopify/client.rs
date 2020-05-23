@@ -143,7 +143,9 @@ impl Client for HyperClient {
                 let body = hyper::body::aggregate(response).await?;
                 serde_json::from_reader(body.reader()).map_err(Error::from)
             }
-            _ => Err(Error::new("".to_string())),
+            status => Err(Error::new(
+                format!("HyperClient: wrong status {}", status).to_string(),
+            )),
         }
     }
 }
@@ -155,6 +157,7 @@ mod hyper_client_tests {
     use crate::platforms::shopify::requests::page::Page;
     use futures::future::join_all;
     use http::uri::Authority;
+    use rand::seq::SliceRandom as _;
     use std::str::FromStr;
 
     #[tokio::test]
@@ -202,11 +205,11 @@ mod hyper_client_tests {
             "truevintage.com",
             "www.staples.ca",
         ]
-        .iter()
+        .choose_multiple(&mut rand::thread_rng(), 3)
         .map(|url| async move {
             let authority = Authority::from_str(url).unwrap();
-            let page = Page::new(1, 1).unwrap();
-            let req = GetProductsRequest { authority, page };
+            let page = Page::new(1, 3).unwrap();
+            let req = GetProductsRequest::new(authority, page);
 
             HyperClient::default().get_products_page(&req).await
         })

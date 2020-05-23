@@ -14,11 +14,12 @@ pub struct GetProductsRequest {
 }
 
 impl GetProductsRequest {
+    pub fn new(authority: Authority, page: Page) -> Self {
+        GetProductsRequest { authority, page }
+    }
+
     pub fn first_page(authority: Authority) -> Self {
-        GetProductsRequest {
-            authority,
-            page: Page::first(),
-        }
+        Self::new(authority, Page::first())
     }
 
     pub fn next(&self) -> Option<Self> {
