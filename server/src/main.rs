@@ -1,4 +1,11 @@
-#![feature(proc_macro_hygiene, decl_macro)]
+#![feature(decl_macro, option_result_contains, proc_macro_hygiene)]
+
+#[macro_use]
+extern crate serde_derive;
+
+mod chainable;
+mod error;
+mod platforms;
 
 use rocket::config::Environment;
 use rocket_contrib::serve::StaticFiles;
