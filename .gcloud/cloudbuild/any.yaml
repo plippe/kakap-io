@@ -16,9 +16,9 @@ steps:
   - '-c'
   - >
     cd server &&
+    rustup component add rustfmt &&
     rustup update nightly &&
     rustup default nightly &&
-    rustup component add rustfmt &&
     cargo test &&
     cargo fmt -- --check
   waitFor: ['-']
